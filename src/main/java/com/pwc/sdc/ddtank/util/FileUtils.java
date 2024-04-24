@@ -4,7 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.*;
+import java.net.URI;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Slf4j
 public class FileUtils {
@@ -82,7 +86,7 @@ public class FileUtils {
                 }
             }
         } catch (Exception e) {
-            log.error("将文件释放到指定目录失败", filename);
+            log.error("将文件释放到指定目录失败{}", filename);
         } finally {
             if (is != null) {
                 try {
@@ -92,5 +96,35 @@ public class FileUtils {
                 }
             }
         }
+    }
+
+    public static void putAttachment(String srcFolder, String distFolder) {
+        Path srcPath = Paths.get(URI.create(srcFolder));
+        Path distPath = Paths.get(URI.create(distFolder));
+        try {
+            // 如果目标文件夹不存在，则创建
+            if (Files.notExists(srcPath)) {
+                Files.createDirectories(srcPath);
+            }
+            // 获取源文件夹的内容
+            Files.list(srcPath).forEach(sourcePath -> {
+                // 获取目标路径
+                Path targetPath = distPath.resolve(srcPath.relativize(sourcePath));
+                try {
+                    // 如果是文件夹，则递归复制；如果是文件，则直接复制
+                    if (Files.isDirectory(sourcePath)) {
+                        Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                    } else {
+                        Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (IOException e) {
+            log.error("复制文件夹失败", e);
+        }
+
+
     }
 }

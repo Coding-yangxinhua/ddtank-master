@@ -190,7 +190,6 @@ public class DDTankCoreTask implements Runnable, Serializable {
                 ddtLog.success("大漠字库设置并使用成功");
             }
         }
-
         // 重新开始计时
         runTime = getRunTime();
         if(runTime < 0) {
@@ -198,32 +197,38 @@ public class DDTankCoreTask implements Runnable, Serializable {
         }
         startTime = System.currentTimeMillis();
         endTime = -1;
-
-        // 更新对象
+        // 获得配置项图片路径
         String picDir = new File(DDTankFileConfigProperties.getBaseDir(), properties.getPicDir()).getAbsolutePath() + "/";
+        // 获得配置项游戏版本
         String version = properties.getVersion();
-        if ("10".equals(version)) {
-            this.ddtankPic = new DDTankPic10_4(dm, picDir, properties, mouse);
-        } else if ("2.4".equalsIgnoreCase(version)) {
-            this.ddtankPic = new DDTankPic2_4(dm, picDir, properties, mouse);
-        } else {
-            this.ddtankPic = new DDTankPic2_3(dm, picDir, properties, mouse);
-        }
-        if ("10".equals(version)) {
-            this.ddtankOperate = new DDtankOperate10_4(dm, mouse, keyboard, ddtankPic, properties);
-        } else {
-            this.ddtankOperate = new DDtankOperate2_3(dm, mouse, keyboard, ddtankPic, properties);
+        // 默认弹弹堂操作逻辑为2.3版本
+        this.ddtankOperate = new DDtankOperate2_3(dm, mouse, keyboard, ddtankPic, properties);
+        // 根据版本设置弹弹堂找图与操作逻辑
+        switch (version) {
+            case "10":
+                this.ddtankPic = new DDTankPic10_4(dm, picDir, properties, mouse);
+                this.ddtankOperate = new DDtankOperate10_4(dm, mouse, keyboard, ddtankPic, properties);
+                break;
+            case "2.4":
+                this.ddtankPic = new DDTankPic2_4(dm, picDir, properties, mouse);
+                break;
+            case "2.3":
+                this.ddtankPic = new DDTankPic2_3(dm, picDir, properties, mouse);
+                break;
+            case "3.6":
+                this.ddtankPic = new DDTankPic3_6(dm, picDir, properties, mouse);
+            default:
+                this.ddtankPic = new DDTankPic2_3(dm, picDir, properties, mouse);
+                break;
         }
         DDTankComplexObjectUpdateUtils.update(this, dm.getSource(), ddtankPic, ddtankOperate);
 
         // 跳过过场动画
         mouse.moveAndClick(21, 519);
-
         // 首次启动时向控制台说明当前为前台模式启动，重启等操作就不会再重复
         if (!isAutoRestart && needCorrect) {
             log.warn("当前窗口无法开启后台模式，可能浏览器使用了极速模式的内核，此时脚本无法获取到游戏窗口截图。即将以前台模式启动。");
         }
-
         // 矫正坐标，需要矫正时检测是否已经矫正过（偏移不为0）
         if (needCorrect && (offsetX != 0 || offsetY != 0)) {
             // TODO 添加手动矫正

@@ -53,3 +53,19 @@ system:
     - DDTankPic2_4.needDraw5,         412, 121, 735, 442,  蛋2-勋章.bmp,            101010, 0.8, 0
     - DDTankPic2_4.needGoingToWharf,  767, 359, 993, 537,  蛋2_4-大厅.bmp,          101010, 0.8, 0
     - DDTankPic2_4.needActiveWindow,  480, 250, 520, 300,  蛋2_4-需要激活窗口.bmp,    101010, 0.8, 0
+    # 弹弹堂经典服配置
+    - DDTankPic3_6.isEnterLevel,      969, 470, 998, 502,  蛋3-本内退出.bmp,        303030, 0.7, 0
+    - DDTankPic3_6.isMyRound,         110, 90, 210, 140,   蛋3-该出手了.bmp,        303030, 0.7, 0
+    - DDTankPic3_6.needChooseMap,     511, 437, 685, 527,  蛋3-随机地图.bmp,        101010, 0.8, 0
+    - DDTankPic3_6.needChooseMap2,    261, 71, 349, 122,   蛋3-大副本页标识.bmp,     101010, 0.8, 0
+    - DDTankPic3_6.needClickStart,    891, 454, 981, 495,  蛋3-开始1.bmp,           101010, 0.9, 0
+    - DDTankPic3_6.needClickPrepare,  891, 454, 981, 545,  蛋3-准备.bmp,            101010, 0.9, 0
+    - DDTankPic3_6.needCloseEmail,    506, 164, 829, 404,  蛋3-邮件.bmp,            101010, 0.8, 0
+    - DDTankPic3_6.needCloseTip,      640, 222, 698, 262,  蛋3-单人模式提示.bmp,      101010, 0.8, 0
+    - DDTankPic3_6.needCloseTip2,     0, 0, 1000, 600,     蛋3-提示.bmp,            101010, 0.8, 0
+    - DDTankPic3_6.needCreateRoom,    665, 466, 743, 540,  蛋3-大厅标识.bmp,         101010, 1,  0
+    - DDTankPic3_6.needDraw,          88, 59, 904, 571,    蛋3-卡牌.bmp,            101010, 0.8, 0
+    - DDTankPic3_6.needDraw2,         636, 224, 724, 291,  蛋3-翻第三张牌.bmp,       101010, 0.8, 0
+    - DDTankPic3_6.needDraw3,         385, 218, 407, 246,  蛋3-全选进背包.bmp,       101010, 0.8, 0
+    - DDTankPic3_6.needGoingToWharf,  500, 466, 711, 554,  蛋3-频道.bmp,            101010, 0.8, 0
+    - DDTankPic3_6.needGoingToWharf2, 767, 359, 993, 537,  蛋3-大厅.bmp,            101010, 0.8, 0
