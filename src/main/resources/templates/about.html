@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:replace="~{base/main :: main (title=~{::title}?:_, content=~{::.about-main}, link=~{::link}?:~{}, script=~{::script}?:~{}, style=~{::style}?:~{}, contentBefore=~{::.bg}, contentAfter=~{},
+      h1='关于本项目（未假设）')}">
+<head>
+    <meta charset="UTF-8">
+    <title>life track</title>
+    <link rel="stylesheet" th:href="@{/static/css/bg.css}"/>
+    <style>
+        .main-body {
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+<div class="bg">
+    <div class="bg-cover"
+         th:style="'background-image:url(/static/img/bg/sapphirebg.jpg);'"></div>
+</div>
+<div class="row about-main">
+    <div class="col-sm-8">
+        <video class="video-js vjs-default-skin" controls preload="none"
+               style="width: 100%;height: 100%;">
+            <source src="/static/video/about.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+</body>
+</html>

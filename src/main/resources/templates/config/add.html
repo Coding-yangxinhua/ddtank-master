@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" th:replace="~{base/main :: main (title=~{::title}?:_, content=~{::.config-add-main}, link=~{::link}?:~{}, script=~{::script}?:~{}, style=~{::style}?:~{}, contentBefore=~{::.bg}, contentAfter=~{},
+      h1='新增配置 <small>强烈建议 <a href=\'/\'>运行</a> 后再新增哦！</small>')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/common/form.css" th:href="@{/static/css/common/form.css}">
+    <link rel="stylesheet" href="/static/css/rsSliderLens.css" th:href="@{/static/css/rsSliderLens.css}">
+    <link rel="stylesheet" href="/static/css/bg.css" th:href="@{/static/css/bg.css}">
+    <script src="/static/js/jquery.rsSliderLens.js" th:src="@{/static/js/jquery.rsSliderLens.js}"></script>
+</head>
+<body>
+<div class="bg">
+    <div class="bg-cover"
+         th:style="'background-image:url(/static/img/bg/friday-fahrenheit.jpg);'">
+    </div>
+</div>
+<div class="row config-add-main">
+    <form id="configAddForm" class="form-horizontal">
+        <div th:replace="common/form :: form-default(${config}, ~{::before}, ~{::end})">
+            <div th:fragment="before">
+                <label class="col-md-2 control-label">配置名称</label>
+                <div class="col-md-10">
+                    <input class="form-control" name="name" th:value="${config.name}"/>
+                </div>
+            </div>
+            <div th:fragment="end">
+                <div class="col-md-offset-10 col-md-2">
+                    <button class=" btn btn-default" type="submit" style="width: 100%">新增</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    $("#configAddForm").submit(function () {
+        let configName = $("#configAddForm input[name='name']").val();
+        if(confirm("确定要添加新配置【" + configName + "】吗？")) {
+            postAjax("/config", $(this).serialize(), function () {
+                windorAlert('提示', '配置添加成功！');
+            })
+        }
+        return false;
+    })
+</script>
+</html>
