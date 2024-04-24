@@ -16,10 +16,10 @@ import java.net.URI;
 @SpringBootApplication
 @Slf4j
 @EnableConfigurationProperties(DMPicConfigProperties.class)
-public class MainApplication {
+public class DDTankApplication {
     public static void main(String[] args) {
         System.setProperty("java.awt.headless", "false");
-        ConfigurableApplicationContext context = SpringApplication.run(MainApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(DDTankApplication.class, args);
         ConfigurableEnvironment environment = context.getEnvironment();
         String port = environment.getProperty("server.port");
         log.info("项目已启动");
