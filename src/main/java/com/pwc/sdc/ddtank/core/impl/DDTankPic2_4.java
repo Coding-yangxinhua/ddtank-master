@@ -16,8 +16,8 @@ public class DDTankPic2_4 extends DDTankPic2_3 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public DDTankPic2_4(Library dm, String path, DDTankCoreTaskProperties properties, Mouse mouse) {
-        super(dm, path, properties, mouse);
+    public DDTankPic2_4(Library dm, DDTankCoreTaskProperties properties, Mouse mouse) {
+        super(dm, properties, mouse);
     }
 
     @Override

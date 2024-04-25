@@ -4,12 +4,14 @@ import com.pwc.sdc.ddtank.excel.DDTankLogConverter;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+@Slf4j
 public class DDTankLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +34,7 @@ public class DDTankLog implements Serializable {
     }
 
     public Log newestLog() {
-        if(logs.size() == 0) {
+        if(logs.isEmpty()) {
             return new Log("当前还没有记录任何日志哦！");
         }
         return logs.get(0);
@@ -41,26 +43,31 @@ public class DDTankLog implements Serializable {
     public void info(String str) {
         checkSize();
         logs.add(0, new Log(str));
+        log.info(str);
     }
 
     public void primary(String str) {
         checkSize();
         logs.add(0, new PrimaryLog(str));
+        log.info(str);
     }
 
     public void success(String str) {
         checkSize();
         logs.add(0, new SuccessLog(str));
+        log.info(str);
     }
 
     public void warn(String str) {
         checkSize();
         logs.add(0, new WarnLog(str));
+        log.warn(str);
     }
 
     public void error(String str) {
         checkSize();
         logs.add(0, new ErrorLog(str));
+        log.error(str);
     }
 
     private void checkSize() {

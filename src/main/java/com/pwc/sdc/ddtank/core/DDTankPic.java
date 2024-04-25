@@ -54,5 +54,7 @@ public interface DDTankPic {
     @Description("获取屏距")
     double calcUnitDistance();
 
+    @Description("获取风力")
+
     double getWind();
 }

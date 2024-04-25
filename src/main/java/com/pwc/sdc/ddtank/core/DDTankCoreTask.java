@@ -206,19 +206,19 @@ public class DDTankCoreTask implements Runnable, Serializable {
         // 根据版本设置弹弹堂找图与操作逻辑
         switch (version) {
             case "10":
-                this.ddtankPic = new DDTankPic10_4(dm, picDir, properties, mouse);
+                this.ddtankPic = new DDTankPic10_4(dm, properties, mouse);
                 this.ddtankOperate = new DDtankOperate10_4(dm, mouse, keyboard, ddtankPic, properties);
                 break;
             case "2.4":
-                this.ddtankPic = new DDTankPic2_4(dm, picDir, properties, mouse);
+                this.ddtankPic = new DDTankPic2_4(dm, properties, mouse);
                 break;
             case "2.3":
-                this.ddtankPic = new DDTankPic2_3(dm, picDir, properties, mouse);
+                this.ddtankPic = new DDTankPic2_3(dm, properties, mouse);
                 break;
             case "3.6":
-                this.ddtankPic = new DDTankPic3_6(dm, picDir, properties, mouse);
+                this.ddtankPic = new DDTankPic3_6(dm, properties, mouse);
             default:
-                this.ddtankPic = new DDTankPic2_3(dm, picDir, properties, mouse);
+                this.ddtankPic = new DDTankPic2_3(dm, properties, mouse);
                 break;
         }
         DDTankComplexObjectUpdateUtils.update(this, dm.getSource(), ddtankPic, ddtankOperate);
@@ -328,6 +328,7 @@ public class DDTankCoreTask implements Runnable, Serializable {
                             }
 
                             if (ddtankPic.needChooseMap()) {
+                                ddtLog.info("选择地图");
                                 ddtankSelectMapHandler.select(passes);
                                 if ("10".equals(properties.getVersion())) {
                                     ThreadUtils.delay(1000, true);
@@ -349,10 +350,12 @@ public class DDTankCoreTask implements Runnable, Serializable {
                             }
 
                             if (ddtankPic.isEnterLevel()) {
+                                ddtLog.info("进入关卡内部");
                                 ddTankCoreAttackHandler.main();
                             }
 
                             if (ddtankPic.needDraw()) {
+                                ddtLog.info("开始翻牌");
                                 ThreadUtils.delay(300, true);
 
                                 // 翻牌截图
@@ -389,9 +392,7 @@ public class DDTankCoreTask implements Runnable, Serializable {
                             ThreadUtils.delay(properties.getDelay(), true);
                         } catch (StopTaskException ignored) {
                         } catch (Exception e) {
-                            e.printStackTrace();
-                            log.error("脚本运行过程中出现异常：" + e.toString());
-                            ddtLog.error("脚本运行过程中出现异常：" + e.toString());
+                            ddtLog.error("脚本运行过程中出现异常：" + e);
                             ThreadUtils.delay(1000, true);
                         }
                     }

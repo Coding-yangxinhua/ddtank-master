@@ -12,11 +12,11 @@ import java.io.Serializable;
 import java.util.List;
 
 @Slf4j
-public class DDTankPic3_6 extends DDTankPic10_4 implements Serializable {
+public class DDTankPic3_6 extends AbstractDDTankPic implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public DDTankPic3_6(Library dm, String path, DDTankCoreTaskProperties properties, Mouse mouse) {
-        super(dm, path, properties, mouse);
+    public DDTankPic3_6(Library dm, DDTankCoreTaskProperties properties, Mouse mouse) {
+        super(properties, dm,  mouse);
     }
 
 
@@ -55,6 +55,17 @@ public class DDTankPic3_6 extends DDTankPic10_4 implements Serializable {
     }
 
     @Override
+    public void drawThird() {
+        mouse.moveAndClick(433, 343);
+        mouse.moveAndClick(400, 340);
+    }
+
+    @Override
+    public Point mailPoint() {
+        return new Point(850, 60);
+    }
+
+    @Override
     public boolean needCreateRoom() {
         Point point = new Point();
         if (getPicFind("needCreateRoom").findPic(point)) {
@@ -87,11 +98,11 @@ public class DDTankPic3_6 extends DDTankPic10_4 implements Serializable {
     public Integer getAngle() {
         String result = dm.ocr(42, 548, 86, 588, "1a1a1a-000000|1a260d-000000|101724-000000|1a2016-000000|28222b-000000|260d0d-000000|1c1d20-000000|211d1d-000000|171d32-000000|1c0d03-000000", 0.95);
         result = result.replaceAll("\\D", "");
-        if ("".equals(result)) {
+        if (result.isEmpty()) {
             result = dm.ocr(42, 548, 86, 588, "000000-000000|170b02-000000|1b1818-000000", 0.95);
             result = result.replaceAll("\\D", "");
         }
-        if ("".equals(result)) {
+        if (result.isEmpty()) {
             return null;
         }
         return Integer.parseInt(result);
